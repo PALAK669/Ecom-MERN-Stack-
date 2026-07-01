@@ -43,8 +43,8 @@ A full-stack MERN e-commerce application with authentication, admin panel, and R
 ---
 
 ## 📂 Project Structure
-frontend/
-backend/
+   └───Backend
+   └───Frontend
 
 ---
 
