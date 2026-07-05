@@ -5,7 +5,12 @@ import { removeFromCart, addToCart } from '../redux/cartSlice';
 import '../styles/cart.css';
 
 const Cart = () => {
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartItems = useSelector((state) => {
+  const items = state.cart.cartItems;
+  return Array.isArray(items) ? items : [];
+});
+
+console.log("cartItems =", cartItems);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

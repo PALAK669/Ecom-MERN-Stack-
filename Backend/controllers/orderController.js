@@ -2,7 +2,6 @@ const Order = require('../models/Order');
 const sendEmail = require('../utils/sendEmail');
 
 const addOrderItems = async (req, res) => {
-  console.log(req.user);
   try {
     const { items, totalAmount, address, paymentId } = req.body;
     if (items && items.length === 0) {

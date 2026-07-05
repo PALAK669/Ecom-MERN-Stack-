@@ -9,7 +9,11 @@ connectDB();
 
 const app = express();
 
-// Set CORS for frontend URL / allow single-node deploy
+// Parse JSON and form data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// CORS
 app.use(cors({
   origin: [
     'http://localhost:3000',
@@ -20,26 +24,22 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+const distPath = path.join(__dirname, "../Frontend/dist");
+
+// API routes FIRST
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 app.use('/api/payment', require('./routes/paymentRoutes'));
 app.use('/api/analytics', require('./routes/analyticsRoutes'));
 
-// Serve frontend in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/build')));
-  
-  app.use((req, res) => {
-    res.sendFile(path.resolve(__dirname, '../frontend/build/index.html'));
-  });
-} else {
-  app.get('/', (req, res) => {
-    res.send('ShopNest API is running in Development mode...');
-  });
-}
+// THEN static files
+app.use(express.static(distPath));
+
+// ONLY for frontend routes (SAFE version)
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
 
 app.get("/test-user", async (req, res) => {
   try {

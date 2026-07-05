@@ -79,6 +79,8 @@ const deleteProduct = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 const addReview = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -86,6 +88,18 @@ const addReview = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
+
+    console.log("=== Product Before Save ===");
+    console.log({
+      id: product._id,
+      name: product.name,
+      description: product.description,
+      category: product.category,
+      price: product.price,
+      stock: product.stock,
+      imageUrl: product.imageUrl,
+    });
+
 
     const { rating, comment } = req.body;
 
@@ -117,6 +131,8 @@ const addReview = async (req, res) => {
     product.ratings =
       product.reviews.reduce((acc, item) => acc + item.rating, 0) /
       product.reviews.length;
+    
+      console.log("Product before save:", product.toObject());
 
     const updated = await product.save();
 
