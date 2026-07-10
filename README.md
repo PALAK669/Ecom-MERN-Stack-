@@ -1,72 +1,77 @@
-# 🛒 Full Stack E-Commerce Website
+# Trendzy - MERN E-Commerce Platform
 
-A full-stack MERN e-commerce application with authentication, admin panel, and Razorpay payment integration.
+A full-stack e-commerce platform built using the MERN stack with secure authentication, role-based access control, Razorpay payment integration, and an admin dashboard for product and order management.
 
+## Live Demo
 
-## 🚀 Features
+Deployment in progress
 
-### 👤 User Side
-- User registration & login (JWT auth)
-- Product browsing
-- Add to cart
-- Place orders
-- Order history
+## Features
 
-### 🛠 Admin Side
-- Admin dashboard
-- Add / edit / delete products
-- Manage orders
-- Update order status
+### User Features
+- User Registration & Login
+- JWT Authentication
+- OTP Verification
+- Product Search & Browsing
+- Add to Cart
+- Place Orders
+- Order History
+- Razorpay Payment Gateway
 
-### 💳 Payment
-- Razorpay integration
-- Multiple payment methods
+### Admin Features
+- Admin Dashboard
+- Add/Edit/Delete Products
+- Manage Orders
+- Update Order Status
+- Inventory Management
 
----
+## Tech Stack
 
-## 🧑‍💻 Tech Stack
-
-### Frontend:
+### Frontend
 - React.js
 - Redux Toolkit
-- React Router
+- React Router DOM
+- Axios
 
-### Backend:
+### Backend
 - Node.js
 - Express.js
-- MongoDB
+- MongoDB Atlas
 - JWT Authentication
+- Nodemailer
 
-### Payment:
-- Razorpay API
+### Payment Integration
+- Razorpay
 
----
 
-## 📂 Project Structure
-   └───Backend
-   └───Frontend
+## Installation
 
----
+### Backend
 
-## ⚙️ Setup Instructions
-
-### 1. Clone repo
-git clone https://github.com/PALAK669/Ecom-MERN-Stack-.git
-
-### 2. Backend setup
-cd backend
+```bash
+cd Backend
 npm install
 npm run dev
+```
 
-   Create `.env`:
-      MONGO_URI=your_mongo_url
-      JWT_SECRET=your_secret
-      RAZORPAY_KEY=your_key
+### Frontend
 
-### 3. Frontend setup
-cd frontend
+```bash
+cd Frontend
 npm install
 npm run dev
+```
 
-## 👨‍💻 Author
-Palak
+Create a .env file in Backend:
+MONGO_URI=
+JWT_SECRET=
+RAZORPAY_KEY_ID=
+RAZORPAY_KEY_SECRET=
+EMAIL_USER=
+EMAIL_PASS=
+
+## Author
+
+Palak Mehta
+
+GitHub: https://github.com/PALAK669
