@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
 import '../styles/product.css';
+import { useLocation } from "react-router-dom";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const location = useLocation();
 
+  const queryParams = new URLSearchParams(location.search);
+
+  const selectedCategory = queryParams.get("category");
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -22,11 +27,23 @@ const Shop = () => {
     fetchProducts();
   }, []);
 
-  const filteredProducts = products.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+  const filteredProducts = products.filter(
+
+    (p) => {
+      const searchMatch = p.name.toLowerCase().includes(search.toLowerCase());
+      const categoryMatch = !selectedCategory || p.category
+    .split(",")
+    .map(c => c.trim())
+    .includes(selectedCategory);
+      return searchMatch && categoryMatch;
+    }
+  );
 
   return (
     <div className="shop-container">
-      <h2>All Products</h2>
+      <h2>{selectedCategory
+    ? `${selectedCategory} Products`
+    : "All Products"}</h2>
       <input 
         type="text" 
         placeholder="Search products..." 

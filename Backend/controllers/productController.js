@@ -143,4 +143,30 @@ const addReview = async (req, res) => {
   }
 };
 
-module.exports = { getProducts, getProductById, createProduct, updateProduct, deleteProduct,addReview};
+const getTestimonials = async (req, res) => {
+  try {
+    const products = await Product.find();
+
+    let testimonials = [];
+
+    products.forEach(product => {
+      product.reviews.forEach(review => {
+        if (review.rating >= 4) {
+          testimonials.push({
+            name: review.name,
+            comment: review.comment,
+            rating: review.rating,
+            productName: product.name,
+          });
+        }
+      });
+    });
+
+    res.json(testimonials.slice(0, 6));
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+module.exports = { getProducts, getProductById, createProduct, updateProduct, deleteProduct,addReview,getTestimonials};

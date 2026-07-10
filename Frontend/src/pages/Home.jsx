@@ -5,7 +5,13 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [testimonials, setTestimonials] = useState([]);
 
+  useEffect(() => {
+    fetch("/api/products/testimonials")
+      .then(res => res.json())
+      .then(data => setTestimonials(data));
+  }, []);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -24,10 +30,10 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="hero-section">
-
+      <div className="hero-glow"></div>
   {/* LEFT TEXT */}
   <div className="hero-text">
-    <p className="tagline">WELCOME TO TRENDZY ✦</p>
+    <p className="tagline">PREMIUM FASHION STORE ✦</p>
 
     <h1>
       Shop the Latest <br />
@@ -35,7 +41,7 @@ const Home = () => {
     </h1>
 
     <p className="subtitle">
-      Discover amazing products, unbeatable deals, and a shopping experience like never before.
+      Discover premium fashion, trending styles, exclusive offers, and secure shopping — all in one place.
     </p>
 
     <Link to="/shop">
@@ -43,6 +49,22 @@ const Home = () => {
         Shop Now →
       </button>
     </Link>
+    <div className="hero-stats">
+      <div>
+        <h3>500+</h3>
+        <p>Products</p>
+      </div>
+
+      <div>
+        <h3>10K+</h3>
+        <p>Customers</p>
+      </div>
+
+      <div>
+        <h3>99%</h3>
+        <p>Satisfaction</p>
+      </div>
+</div>
 
     {/* FEATURES */}
     <div className="features">
@@ -81,16 +103,65 @@ const Home = () => {
     <img src="/hero-banner.png" alt="hero" />
   </div>
 </div>
+      <div className="categories-section">
+  <h2>Shop by Category</h2>
+
+  <div className="categories-grid">
+    <Link to="/shop?category=Women" className="category-card">
+      👗 Women
+    </Link>
+
+    <Link to="/shop?category=Men" className="category-card">
+      👔 Men
+    </Link>
+
+    <Link to="/shop?category=Shoes" className="category-card">
+      👟 Shoes
+    </Link>
+
+    <Link to="/shop?category=Accessories" className="category-card">
+      ⌚ Accessories
+    </Link>
+  </div>
+</div>
+      <div className="section-header">
+      <h2>🔥 Trending Products</h2>
+      <p>Handpicked products loved by our customers</p>
+    </div>
       {loading ? (
         <div>Loading...</div>
       ) : (
+
         <div className="product-grid">
           {products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
         </div>
       )}
+
+          {Array.isArray(testimonials) &&
+  testimonials.map((item, index) => (
+        <div className="testimonial-grid">
+      <div className="testimonial-card" key={index}>
+    <div className="testimonial-product">
+      {item.productName}
     </div>
+
+    <div className="testimonial-rating">
+      {"⭐".repeat(item.rating)}
+    </div>
+
+    <p className="testimonial-comment">
+      "{item.comment}"
+    </p>
+
+    <h4 className="testimonial-user">
+      — {item.name}
+    </h4>
+    </div>
+    </div>
+))}
+  </div>
   );
 };
 
