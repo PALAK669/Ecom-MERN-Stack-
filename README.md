@@ -93,6 +93,6 @@ EMAIL_PASS=
 
 ## Author
 
-Palak Mehta
+Palak 
 
 GitHub: https://github.com/PALAK669
